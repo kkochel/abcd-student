@@ -15,6 +15,9 @@ pipeline {
         stage('Example - Hello Pawle!') {
             steps {
                 echo 'Hello Pawle!'
+                echo 'Current workspace'
+                pwd
+                echo 'Listing files in the workspace'
                 sh 'ls -la'
             }
         }
