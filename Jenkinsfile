@@ -24,7 +24,9 @@ pipeline {
         stage('[ZAP] Baseline passive-scan') {
                 steps {
                     sh '''
-                        docker run --name juice-shop-2 -d \
+                        docker stop zap juice-shop
+                        docker stop zap juice-shop-2
+                        docker run --name juice-shop -d \
                             -p 3000:3000 \
                             bkimminich/juice-shop
                         sleep 5
