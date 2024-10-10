@@ -23,13 +23,14 @@ pipeline {
         }
         stage('[ZAP] Baseline passive-scan') {
                 steps {
+                    echo 'Run juice-shop container'
                     sh '''
-                        docker stop zap juice-shop
                         docker run --name juice-shop -d \
                             -p 3000:3000 \
                             bkimminich/juice-shop
                         sleep 5
                     '''
+                    echo 'Run zap container'
                     sh '''
                         docker run --name zap \
                             --add-host=host.docker.internal:host-gateway \
@@ -45,7 +46,7 @@ pipeline {
                             mkdir -p ${WORKSPACE}/results
                             docker cp zap:/zap/wrk/zap_html_report.html ${WORKSPACE}/results/zap_html_report.html
                             docker cp zap:/zap/wrk/zap_xml_report.xml ${WORKSPACE}/results/zap_xml_report.xml
-                            docker stop zap juice-shop
+                            docker stop zap
                         '''
                     }
                 }
