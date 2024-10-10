@@ -16,7 +16,7 @@ pipeline {
             steps {
                 echo 'Hello Pawle!'
                 echo 'Current workspace'
-                pwd
+                sh 'pwd'
                 echo 'Listing files in the workspace'
                 sh 'ls -la'
             }
